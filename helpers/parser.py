@@ -4,7 +4,7 @@ from pprint import pprint
 import requests
 from bs4 import BeautifulSoup
 
-BASE_URL = " https://datki.net/komplimenti/podruge/prikolnie/"
+BASE_URL = "https://datki.net/komplimenti/podruge/prikolnie/"
 
 
 def get_soup(url: str) -> BeautifulSoup:
@@ -34,5 +34,12 @@ def get_compliments(url: str = BASE_URL):
     return result
 
 
+compliments = get_compliments() + get_compliments("https://datki.net/komplimenti")
+
 with open("compliments.json", mode="w", encoding="utf-8") as file:
-    json.dump(get_compliments(), file, indent=4, ensure_ascii=False)
+    json.dump(
+        compliments,
+        file,
+        indent=4,
+        ensure_ascii=False,
+    )
