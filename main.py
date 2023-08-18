@@ -1,8 +1,9 @@
 from aiogram import executor
 
+from data.loader import dp, scheduler
 import handlers
-from data.loader import dp
 
 if __name__ == "__main__":
     print("bot working")
-    executor.start_polling(dp)
+    scheduler.start()
+    executor.start_polling(dp, skip_updates=True)
