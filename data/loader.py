@@ -4,11 +4,11 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from . import config
 
-bot = Bot(token=config.BOT_TOKEN, proxy="http://proxy.server:3128")
+# bot = Bot(token=config.BOT_TOKEN, proxy="http://proxy.server:3128")
 
 storage = MemoryStorage()
 
-# bot = Bot(token=config.BOT_TOKEN)
+bot = Bot(token=config.BOT_TOKEN)
 dp = Dispatcher(bot, storage=storage)
 
 scheduler = AsyncIOScheduler()

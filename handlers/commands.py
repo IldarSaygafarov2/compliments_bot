@@ -34,11 +34,13 @@ async def get_compliment(message: types.Message):
 @dp.message_handler()
 async def send_compliment_by_me(message: types.Message):
     my_compliments = read_file("my_compliments.txt")
-    compliment = random.choice(my_compliments).replace("\n ", "\n")
-    await bot.send_message(config.MAIN_USER_ID, "А это для моей девочки♥")
-    await bot.send_message(config.MAIN_USER_ID, compliment)
+    compliment = random.choice(my_compliments)
+    for chat_id in [config.MAIN_USER_ID, 5090318438]:
+        await bot.send_message(chat_id, "А это для моей девочки♥")
+        await bot.send_message(chat_id, compliment)
+    print('отправлено')
 
 
-scheduler.add_job(send_compliment_by_me, "interval", seconds=21600, args=(types.Message,))
+scheduler.add_job(send_compliment_by_me, "interval", seconds=300, args=(types.Message,))
 
 
