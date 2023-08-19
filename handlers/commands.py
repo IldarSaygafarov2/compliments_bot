@@ -41,6 +41,6 @@ async def send_compliment_by_me(message: types.Message):
     print('отправлено')
 
 
-scheduler.add_job(send_compliment_by_me, "interval", seconds=21600, args=(types.Message,))
+scheduler.add_job(send_compliment_by_me, "interval", seconds=2400, args=(types.Message,))
 
 
