@@ -5,6 +5,7 @@ from aiogram import types
 from data.loader import bot, dp, scheduler
 from data import config
 from helpers.utils import read_json, read_file
+from apscheduler.triggers.cron import CronTrigger
 
 
 
@@ -41,6 +42,7 @@ async def send_compliment_by_me(message: types.Message):
     print('отправлено')
 
 
-scheduler.add_job(send_compliment_by_me, "interval", seconds=21600, args=(types.Message,))
+# scheduler.add_job(send_compliment_by_me, "interval", seconds=21600, args=(types.Message,))
+scheduler.add_job(send_compliment_by_me, CronTrigger(hour="0, 6, 12, 18", minute="30", second="0"), args=(types.Message,))
 
 
