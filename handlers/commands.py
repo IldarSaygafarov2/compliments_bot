@@ -1,6 +1,7 @@
 import random
 
 from aiogram import types
+from aiogram.utils.exceptions import BotBlocked
 
 from data.loader import bot, dp, scheduler
 from data import config
@@ -36,13 +37,17 @@ async def get_compliment(message: types.Message):
 async def send_compliment_by_me(message: types.Message):
     my_compliments = read_file("my_compliments.txt")
     compliment = random.choice(my_compliments)
+
     for chat_id in [config.MAIN_USER_ID, 5090318438]:
-        await bot.send_message(chat_id, "А это для моей девочки♥")
-        await bot.send_message(chat_id, compliment)
+        try:
+            await bot.send_message(chat_id, "А это для моей девочки♥")
+            await bot.send_message(chat_id, compliment)
+        except BotBlocked:
+            print('bot was blocked by', chat_id)
     print('отправлено')
 
 
-# scheduler.add_job(send_compliment_by_me, "interval", seconds=21600, args=(types.Message,))
-scheduler.add_job(send_compliment_by_me, CronTrigger(hour="0, 6, 12, 18", minute="30", second="0"), args=(types.Message,))
+scheduler.add_job(send_compliment_by_me, "interval", seconds=21600, args=(types.Message,))
+# scheduler.add_job(send_compliment_by_me, CronTrigger(hour="0, 6, 12, 18", minute="30", second="0"), args=(types.Message,))
 
 
